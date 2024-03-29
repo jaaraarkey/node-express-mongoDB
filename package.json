@@ -1,0 +1,19 @@
+{
+  "name": "nators",
+  "version": "1.0.0",
+  "description": "Laerning node, express and mongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "Hello world",
+    "start": "app.js",
+    "dev": "nodemon run app.js"
+  },
+  "author": "Oleg",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

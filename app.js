@@ -9,10 +9,10 @@ const app = express();
 //   => Middlewares
 app.use(express.json());
 
-// app.use((req, res, next) => {
-//   console.log('This is middleware 🚀');
-//   next();
-// });
+/* app.use((req, res, next) => {
+  console.log('This is middleware 🚀');
+  next();
+}); */
 
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -131,32 +131,34 @@ const deleteUser = (req, res) => {
     message: 'This rout is not yet defined',
   });
 };
+/* app.post('/api/v1/tours', createTour);
+app.get('/api/v1/tours', getAllTours);
+app.get('/api/v1/tours/:id', getTour);
+app.patch('/api/v1/tours/:id', updateTour);
+app.delete('/api/v1/tours/:id', deleteTour); */
 
-// app.post('/api/v1/tours', createTour);
-// app.get('/api/v1/tours', getAllTours);
-// app.get('/api/v1/tours/:id', getTour);
-// app.patch('/api/v1/tours/:id', updateTour);
-// app.delete('/api/v1/tours/:id', deleteTour);
+// ? Tour  Routs
+const tourRouter = express.Router();
 
-// Tour  Routs
-app.route('/api/v1/tours').get(getAllTours).post(createTour);
+tourRouter.route('/').get(getAllTours).post(createTour);
+tourRouter.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
 
-app
-  .route('/api/v1/tours/:id')
-  .get(getTour)
-  .patch(updateTour)
-  .delete(deleteTour);
+// ? User Routs
+const userRouter = express.Router();
 
-// User Routs
-app.route('/api/v1/users').get(getAllUsers).post(createUser);
-
-app
+userRouter.route('/').get(getAllUsers).post(createUser);
+userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
+/* app
   .route('/api/v1/users/:id')
   .get(getUser)
   .patch(updateUser)
   .delete(deleteUser);
+ */
 
-//  => Server
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
+
+// ? => Server
 const port = 3000;
 app.listen(port, () => {
   console.log(`Server is up and running on port: ${port}`);
